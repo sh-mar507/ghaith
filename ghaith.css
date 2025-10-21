@@ -1,0 +1,493 @@
+/* Base */
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+    margin: 0;
+    font-family: 'Tajawal', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    background: #000;
+    color: #1f2d3d;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* Dark blue banner background with playful icons */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #1a237e 0%, #0d47a1 50%, #1565c0 100%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Playful background icons like in the image */
+body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        /* Airplanes with dotted trails */
+        radial-gradient(circle at 15% 25%, #ffeb3b 3px, transparent 3px),
+        radial-gradient(circle at 18% 30%, #ffeb3b 1px, transparent 1px),
+        radial-gradient(circle at 21% 35%, #ffeb3b 1px, transparent 1px),
+        radial-gradient(circle at 24% 40%, #ffeb3b 1px, transparent 1px),
+        radial-gradient(circle at 12% 20%, #f44336 3px, transparent 3px),
+        radial-gradient(circle at 15% 25%, #f44336 1px, transparent 1px),
+        radial-gradient(circle at 18% 30%, #f44336 1px, transparent 1px),
+        /* Lightbulb, puzzle piece, building block */
+        radial-gradient(circle at 85% 20%, #ffeb3b 4px, transparent 4px),
+        radial-gradient(circle at 80% 25%, #2196f3 3px, transparent 3px),
+        radial-gradient(circle at 82% 30%, #f44336 3px, transparent 3px);
+    background-size: 300px 300px, 200px 200px, 250px 250px, 180px 180px, 320px 320px, 220px 220px, 280px 280px, 150px 150px, 120px 120px, 100px 100px;
+    animation: playfulFloat 25s ease-in-out infinite;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.6;
+}
+
+@keyframes playfulFloat {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    25% { transform: translateY(-5px) rotate(0.5deg); }
+    50% { transform: translateY(-8px) rotate(1deg); }
+    75% { transform: translateY(-3px) rotate(0.5deg); }
+}
+
+/* Header */
+.bb-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(255,255,255,0.96);
+    backdrop-filter: saturate(140%) blur(6px);
+    box-shadow: 0 10px 30px rgba(0,0,0,.15);
+    padding: 16px 22px;
+}
+.bb-brand { display: flex; align-items: center; gap: 10px; }
+.bb-logo-img {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+}
+.bb-logo {
+    font-family: 'Fredoka', cursive;
+    font-weight: 700;
+    font-size: 22px;
+    color: #143471;
+}
+.bb-sep { width: 6px; height: 6px; border-radius: 50%; background: #f14a35; }
+.bb-title { font-weight: 700; color: #143471; }
+.bb-slogan { color: #f14a35; font-weight: 600; margin-top: 6px; }
+
+/* Footer */
+.bb-footer {
+    text-align: center;
+    padding: 28px 16px 40px;
+    color: #fff;
+    font-weight: 600;
+}
+.bb-footer .bb { color: #fff; background: rgba(0,0,0,.15); padding: 2px 8px; border-radius: 12px; }
+
+/* Board */
+.board-wrap { 
+    padding: 28px 18px 60px; 
+    position: relative;
+    z-index: 10;
+}
+.board {
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+}
+
+/* Center card */
+.center-card {
+    position: relative;
+    margin: 40px auto 50px;
+    width: clamp(240px, 40vw, 340px);
+    aspect-ratio: 1 / 1;
+    border-radius: 28px;
+    background: radial-gradient(120% 120% at 70% 0%, rgba(241,74,53,.18), rgba(20,52,113,.18) 60%, rgba(255,255,255,.1));
+    box-shadow: 0 20px 60px rgba(0,0,0,.25);
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    border: 4px solid #fff;
+}
+.avatar {
+    position: relative;
+    width: 62%;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    border: 6px solid #fff;
+    box-shadow: 0 12px 30px rgba(0,0,0,.2);
+    overflow: hidden;
+    background: #e6f0ff;
+}
+.avatar img { 
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
+    display: block;
+    transform: scaleX(1); /* عدم عكس صورة غيث */
+}
+.avatar-fallback {
+    position: absolute; inset: 0; display: grid; place-items: center;
+    font-weight: 800; font-size: clamp(48px, 12vw, 80px); color: #143471;
+}
+.child-name {
+    position: absolute; bottom: 12px; right: 0; left: 0;
+    text-align: center; color: #143471; font-weight: 800; font-size: 28px;
+    text-shadow: 0 2px 0 rgba(255,255,255,.9);
+}
+
+/* Cards grid with irregular sizes */
+.cards {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 16px;
+}
+
+.card {
+    position: relative;
+    background: #fff;
+    border-radius: 20px;
+    border: 4px solid transparent;
+    box-shadow: 0 12px 32px rgba(0,0,0,.15);
+    overflow: hidden;
+    transition: transform .3s ease, box-shadow .3s ease;
+    will-change: transform;
+}
+.card:hover { transform: translateY(-6px) rotateZ(-.2deg); box-shadow: 0 18px 40px rgba(0,0,0,.22); }
+.card::before { content: ""; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(20,52,113,.18), rgba(241,74,53,.18)); opacity: .12; }
+.card .img { 
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
+    display: block;
+    transform: scaleX(-1); /* عكس الصور أفقياً */
+}
+.card .label { position: absolute; bottom: 8px; inset-inline: 8px; background: rgba(255,255,255,.92); color: #143471; padding: 8px 12px; border-radius: 14px; font-weight: 700; display: inline-flex; align-items: center; gap: 8px; }
+.label i { color: #f14a35; }
+
+/* Irregular spans to mimic inspiration board */
+.span-3x3 { grid-column: span 3; grid-row: span 3; aspect-ratio: 1 / 1; }
+.span-4x3 { grid-column: span 4; grid-row: span 3; aspect-ratio: 4 / 3; }
+.span-5x3 { grid-column: span 5; grid-row: span 3; aspect-ratio: 16 / 9; }
+.span-3x4 { grid-column: span 3; grid-row: span 4; aspect-ratio: 3 / 4; }
+.span-2x3 { grid-column: span 2; grid-row: span 3; aspect-ratio: 2 / 3; }
+.span-6x4 { grid-column: span 6; grid-row: span 4; aspect-ratio: 3 / 2; }
+.span-8x5 { grid-column: span 8; grid-row: span 5; aspect-ratio: 8 / 5; }
+
+/* Colored borders for variety */
+.theme-green { border-color: #86efac; }
+.theme-watermelon { border-color: #f87171; }
+.theme-hobby { border-color: #fb923c; }
+.theme-team { border-color: #60a5fa; }
+.theme-game { border-color: #a78bfa; }
+.theme-animal { border-color: #f9a8d4; }
+.theme-drink { border-color: #fbbf24; }
+.theme-subject { border-color: #34d399; }
+.theme-character { border-color: #f472b6; }
+
+/* Parallax-like gentle motion */
+@keyframes floaty {
+    from { transform: translateY(0); }
+    to { transform: translateY(-10px); }
+}
+.card { animation: floaty 4s ease-in-out infinite alternate; }
+.card:nth-child(odd) { animation-duration: 5.2s; }
+.card:nth-child(3n) { animation-duration: 6s; }
+
+/* Wish Star */
+.wish-star {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(45deg, #ffd700, #ffed4e);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 8px 25px rgba(255, 215, 0, 0.4);
+    animation: wishStarFloat 3s ease-in-out infinite;
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+.wish-star:hover {
+    transform: scale(1.1);
+    box-shadow: 0 12px 35px rgba(255, 215, 0, 0.6);
+}
+
+.wish-star i {
+    font-size: 24px;
+    color: #fff;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+@keyframes wishStarFloat {
+    0%, 100% { transform: translateX(0px); }
+    50% { transform: translateX(10px); }
+}
+
+/* Wish Modal */
+.wish-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.7);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    backdrop-filter: blur(5px);
+}
+
+.wish-modal.show {
+    display: flex;
+}
+
+.wish-modal-content {
+    background: white;
+    border-radius: 20px;
+    padding: 30px;
+    max-width: 500px;
+    width: 90%;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    animation: modalAppear 0.3s ease;
+}
+
+@keyframes modalAppear {
+    from { opacity: 0; transform: scale(0.8); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+.wish-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.wish-modal-header h3 {
+    color: #143471;
+    font-size: 24px;
+    margin: 0;
+}
+
+.wish-close {
+    background: none;
+    border: none;
+    font-size: 28px;
+    color: #f14a35;
+    cursor: pointer;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.wish-modal-body p {
+    color: #666;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+#wishText {
+    width: 100%;
+    height: 120px;
+    padding: 15px;
+    border: 2px solid #e0e0e0;
+    border-radius: 15px;
+    font-family: 'Tajawal', sans-serif;
+    font-size: 16px;
+    resize: vertical;
+    transition: border-color 0.3s ease;
+}
+
+#wishText:focus {
+    outline: none;
+    border-color: #f14a35;
+}
+
+.wish-save {
+    background: linear-gradient(45deg, #143471, #f14a35);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 25px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+}
+
+.wish-save:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+}
+
+/* Wish Tooltip */
+.wish-tooltip {
+    position: absolute;
+    background: rgba(0,0,0,0.8);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 14px;
+    pointer-events: none;
+    z-index: 3000;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    max-width: 200px;
+    word-wrap: break-word;
+}
+
+.wish-tooltip.show {
+    opacity: 1;
+}
+
+/* Small wish stars - flying around main star */
+.wish-star-small {
+    position: fixed;
+    width: 20px;
+    height: 20px;
+    background: linear-gradient(45deg, #ffd700, #ffed4e);
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
+    z-index: 1000;
+    transition: all 0.3s ease;
+    animation: flyAround 8s linear infinite;
+    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+}
+
+.wish-star-small:hover {
+    transform: scale(1.5);
+    box-shadow: 0 6px 20px rgba(255, 215, 0, 0.8);
+    animation-play-state: paused;
+}
+
+/* Flying animation around the main star */
+@keyframes flyAround {
+    0% { 
+        transform: rotate(0deg) translateX(60px) rotate(0deg);
+    }
+    100% { 
+        transform: rotate(360deg) translateX(60px) rotate(-360deg);
+    }
+}
+
+/* Different flying speeds and distances for variety - SLOWER */
+.wish-star-small:nth-child(1) { 
+    animation-duration: 15s; 
+    animation-name: flyAround1;
+}
+.wish-star-small:nth-child(2) { 
+    animation-duration: 20s; 
+    animation-name: flyAround2;
+}
+.wish-star-small:nth-child(3) { 
+    animation-duration: 25s; 
+    animation-name: flyAround3;
+}
+.wish-star-small:nth-child(4) { 
+    animation-duration: 18s; 
+    animation-name: flyAround4;
+}
+.wish-star-small:nth-child(5) { 
+    animation-duration: 22s; 
+    animation-name: flyAround5;
+}
+.wish-star-small:nth-child(6) { 
+    animation-duration: 28s; 
+    animation-name: flyAround6;
+}
+.wish-star-small:nth-child(7) { 
+    animation-duration: 16s; 
+    animation-name: flyAround7;
+}
+.wish-star-small:nth-child(8) { 
+    animation-duration: 30s; 
+    animation-name: flyAround8;
+}
+
+/* Different orbital paths for star-shaped stars */
+@keyframes flyAround1 {
+    0% { transform: rotate(0deg) translateX(50px) rotate(0deg); }
+    100% { transform: rotate(360deg) translateX(50px) rotate(-360deg); }
+}
+
+@keyframes flyAround2 {
+    0% { transform: rotate(45deg) translateX(70px) rotate(0deg); }
+    100% { transform: rotate(405deg) translateX(70px) rotate(-360deg); }
+}
+
+@keyframes flyAround3 {
+    0% { transform: rotate(90deg) translateX(60px) rotate(0deg); }
+    100% { transform: rotate(450deg) translateX(60px) rotate(-360deg); }
+}
+
+@keyframes flyAround4 {
+    0% { transform: rotate(135deg) translateX(80px) rotate(0deg); }
+    100% { transform: rotate(495deg) translateX(80px) rotate(-360deg); }
+}
+
+@keyframes flyAround5 {
+    0% { transform: rotate(180deg) translateX(55px) rotate(0deg); }
+    100% { transform: rotate(540deg) translateX(55px) rotate(-360deg); }
+}
+
+@keyframes flyAround6 {
+    0% { transform: rotate(225deg) translateX(75px) rotate(0deg); }
+    100% { transform: rotate(585deg) translateX(75px) rotate(-360deg); }
+}
+
+@keyframes flyAround7 {
+    0% { transform: rotate(270deg) translateX(65px) rotate(0deg); }
+    100% { transform: rotate(630deg) translateX(65px) rotate(-360deg); }
+}
+
+@keyframes flyAround8 {
+    0% { transform: rotate(315deg) translateX(85px) rotate(0deg); }
+    100% { transform: rotate(675deg) translateX(85px) rotate(-360deg); }
+}
+
+/* Add twinkling effect for stars */
+@keyframes twinkle {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+}
+
+.wish-star-small {
+    animation: flyAround 20s linear infinite, twinkle 3s ease-in-out infinite;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .cards { grid-template-columns: repeat(8, 1fr); }
+}
+@media (max-width: 720px) {
+    .cards { grid-template-columns: repeat(4, 1fr); }
+    .center-card { width: clamp(220px, 60vw, 300px); }
+    .wish-star { bottom: 20px; right: 20px; width: 50px; height: 50px; }
+    .wish-star i { font-size: 20px; }
+}
+@media (max-width: 420px) {
+    .cards { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .wish-modal-content { padding: 20px; }
+}
+
